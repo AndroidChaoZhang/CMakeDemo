@@ -1,0 +1,22 @@
+选择ndk目录后
+1.CMakeList.txt 放到model根目录下
+2.blur.c 放到src/main/cpp/blur.c
+3.NativeBlurProcess.java 放到对应的包名下，修改blur.c的方法名Java_com_zc_democoolwidget_imagegaosi_stackblur_NativeBlurProcess_functionToBlur 包名+类名+方法名
+4.model下的build.gradle中添加
+sourceSets {
+    main {
+        jniLibs.srcDirs = ['libs']
+    }
+} //这个是自动生成jinLib目录
+externalNativeBuild {
+    cmake {
+        cppFlags ""
+        abiFilters 'armeabi', 'armeabi-v7a'
+    }
+}
+externalNativeBuild {
+    cmake {
+        path "CMakeLists.txt"
+    }
+}
+5.rebuild
